@@ -23,8 +23,20 @@ export default {
           console.log(error);
         });
     },
-    logout() {
-      localStorage.clear();
+    async logout() {
+      let result = await axios
+        .get("http://127.0.0.1:8000/api/logout", {
+          headers: {
+            Authorization: `bearer ${localStorage.getItem("user-token")}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          localStorage.clear();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
